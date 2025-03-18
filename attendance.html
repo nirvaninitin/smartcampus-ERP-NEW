@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mark Attendance</title>
+    <link rel="stylesheet" href="attendance.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+<div class="sidebar">
+    <ul>
+        <li><a href="teacher_dashboard.php">Dashboard</a></li>
+        <li><a href="attendance.html" class="active">Mark Attendance</a></li>
+        <li><a href="upload_assignment.html">Upload Assignment</a></li>
+        <li><a href="upload_event.php">Events</a></li>
+        <li><a href="teacher_view_timetable.html">View Timetable</a></li>
+        <li><a href="forget_password_teacher.html">Forget or Update Password</a></li>
+        <li><a href="logout.html">Logout</a></li>
+    </ul>
+</div>
+
+<div class="main-content">
+    <div class="attendance-form">
+        <h2>Mark Attendance</h2>
+        <form id="attendanceForm" action="save_attendance.php" method="POST">
+            <label for="attendance_date">Attendance Date:</label>
+            <input type="date" id="attendance_date" name="attendance_date" required>
+
+            <label for="class_type">Class Type:</label>
+            <select id="class_type" name="class_type" required>
+                <option value="">Please Select</option>
+                <option value="Regular Lecture">Regular Lecture</option>
+                <option value="Extra Lecture">Extra Lecture</option>
+                <option value="Alternate Lecture">Alternate Lecture</option>
+            </select>
+
+            <label for="topic_covered">Topic Covered:</label>
+            <input type="text" id="topic_covered" name="topic_covered" required>
+
+            <label for="subject_name">Subject Name:</label>
+            <input type="text" id="subject_name" name="subject_name" required>
+
+            <label for="default_status">Default Status:</label>
+            <select id="default_status" name="default_status" required>
+                <option value="">Please Select</option>
+                <option value="P">Present</option>
+                <option value="A">Absent</option>
+            </select>
+
+            <label for="course">Course:</label>
+            <input type="text" id="course" name="course" required>
+
+            <label for="section">Section:</label>
+            <input type="text" id="section" name="section" required>
+
+            <div id="studentList"></div>
+
+            <button type="submit">Save Attendance</button>
+        </form>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function() {
+        $("#section").on("blur", function() {  // Trigger AJAX when section input loses focus
+            var course = $("#course").val().trim();
+            var section = $("#section").val().trim();
+            if (course && section) {
+                $.ajax({
+                    url: "fetch_students.php",
+                    type: "POST",
+                    data: { course: course, section: section },
+                    success: function(data) {
+                        $("#studentList").html(data);
+                    }
+                });
+            }
+        });
+    });
+</script>
+
+</body>
+</html>

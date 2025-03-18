@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload Timetable</title>
+    <link rel="stylesheet" href="timetable_admin.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <h2>Admin Dashboard</h2>
+        <ul>
+            <li><a href="admin.html">Dashboard</a></li>
+            <li><a href="add-student.html">Add Student</a></li>
+            <li><a href="add-teacher.html">Add Teacher</a></li>
+            <li><a href="delete_user.php">Delete User</a></li>
+            <li><a href="update_user.php">Update User</a></li>
+            <li><a href="admin_upload_timetable.php">Upload Time-table Student</a></li>
+            <li><a href="admin_upload_timetable_teacher.html">Upload Time-table Teacher</a></li>
+            <li><a href="admin_upload_result.html">Upload Result</a></li>
+            <li><a href="admin-reports.html">View Reports</a></li>
+            <li><a href="forget_password_admin.html">Forget or Update Password</a></li>
+            <li><a href="logout.html">Logout</a></li>
+        </ul>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <header>
+            <h1>Upload Timetable</h1>
+            <p>Select the teacher and set the timetable details.</p>
+        </header>
+
+        <section>
+            <form action="admin_upload_timetable_teacher.php" method="POST">
+                <!-- Teacher Selection with Auto-Suggest -->
+                <label for="teacher">Select Teacher:</label>
+                <select id="teacher" name="teacher_id" required>
+                    <option value="">Loading teachers...</option>
+                </select>
+
+                <label for="day">Day:</label>
+                <select id="day" name="day" required>
+                    <option value="Monday">Monday</option>
+                    <option value="Tuesday">Tuesday</option>
+                    <option value="Wednesday">Wednesday</option>
+                    <option value="Thursday">Thursday</option>
+                    <option value="Friday">Friday</option>
+                    <option value="Saturday">Saturday</option>
+                </select>
+
+                <!-- Time Picker Input -->
+                <label for="start_time">Start Time:</label>
+                <input type="time" id="start_time" name="start_time" required>
+
+                <label for="end_time">End Time:</label>
+                <input type="time" id="end_time" name="end_time" required>
+
+                <label for="course">Course:</label>
+                <select id="course" name="course" required>
+                    <option value="BBA_CA">BBA CA</option>
+                    <option value="BCA">BCA</option>
+                    <option value="BSC">BSC</option>
+                </select>
+
+                <label for="section">Section:</label>
+                <input type="text" id="section" name="section" placeholder="A, B, C" required>
+
+                <label for="subject">Subject:</label>
+                <input type="text" id="subject" name="subject" required>
+
+                <label for="room">Room Number:</label>
+                <input type="text" id="room" name="room" required>
+
+                <button type="submit">Upload Timetable</button>
+            </form>
+        </section>
+    </div>
+
+    <script>
+        $(document).ready(function() {
+            // Fetch teachers dynamically
+            $.ajax({
+                url: "fetch_teachers.php",
+                method: "GET",
+                success: function(data) {
+                    $("#teacher").html(data);
+                }
+            });
+        });
+    </script>
+</body>
+</html>

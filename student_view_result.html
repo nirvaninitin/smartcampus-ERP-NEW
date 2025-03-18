@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Results</title>
+    <link rel="stylesheet" href="style_result.css">
+</head>
+<body>
+    <div class="sidebar">
+        <h2>Student Dashboard</h2>
+        <ul>
+            <li><a href="student-dashboard.php">Dashboard</a></li>
+            <li><a href="events.php">Events</a></li>
+            <li><a href="view_assignment.php">Assignments</a></li>
+            <li><a href="profile-update.php">Profile Update</a></li>
+            <li><a href="view_attendance.php">Attendance</a></li>
+            <li><a href="view_timtable_student.php">Time-table</a></li>
+            <li><a href="student_view_result.html">Result</a></li>
+            <li><a href="forgot_password_student.html">Forget or Update Password</a></li>
+            <li><a href="logout.html">Logout</a></li>
+        </ul>
+    </div>
+
+    <div class="main-content">
+        <h2>My Results</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Result File</th>
+                    <th>Download</th>
+                </tr>
+            </thead>
+            <tbody id="resultTable"></tbody>
+        </table>
+    </div>
+
+      <script>
+    // Check if student ID is stored in localStorage or sessionStorage
+    let student_id = sessionStorage.getItem("student_id") || localStorage.getItem("student_id");
+
+    if (!student_id) {
+        console.error("Error: Student ID is missing from localStorage or sessionStorage.");
+        document.getElementById("resultTable").innerHTML = "<tr><td colspan='2'>Error: Missing Student ID</td></tr>";
+    } else {
+        fetch(`view_results.php?id=${student_id}`) // Use correct query parameter
+            .then(response => response.json())
+            .then(data => {
+                let table = document.getElementById("resultTable");
+                table.innerHTML = "";
+
+                if (!Array.isArray(data)) {
+                    console.error("Error: Invalid response format", data);
+                    table.innerHTML = "<tr><td colspan='2'>Error loading results.</td></tr>";
+                    return;
+                }
+
+                if (data.length === 0) {
+                    table.innerHTML = "<tr><td colspan='2'>No results found.</td></tr>";
+                    return;
+                }
+
+                data.forEach(result => {
+                    let fileName = result.file_path.split('/').pop();
+                    let row = `<tr>
+                        <td>${fileName}</td>
+                        <td><a href="${result.file_path}" download>Download</a></td>
+                    </tr>`;
+                    table.innerHTML += row;
+                });
+            })
+            .catch(error => {
+                console.error("Fetch error:", error);
+                document.getElementById("resultTable").innerHTML = "<tr><td colspan='2'>Error loading results.</td></tr>";
+            });
+    }
+</script>
+
+</body>
+</html>

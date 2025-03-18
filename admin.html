@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="admin.css">
+</head>
+<body>
+    <!-- Sidebar Navigation -->
+    <div class="sidebar">
+        <h2>Admin Dashboard</h2>
+        <ul>
+            <li><a href="admin.html">Dashboard</a></li>
+            <li><a href="add-student.html">Add Student</a></li>
+            <li><a href="add-teacher.html">Add Teacher</a></li>
+            <li><a href="delete_user.php">Delete User</a></li>
+            <li><a href="update_user.php">Update User</a></li>
+            <li><a href="admin_upload_timetable.php">Upload Time-table Student</a></li>
+            <li><a href="admin_upload_timetable_teacher.html">Upload Time-table Teacher</a></li>
+            <li><a href="admin_upload_result.html">Upload Result</a></li>
+            <li><a href="admin-reports.html">View Reports</a></li>
+            <li><a href="forget_password_admin.html">Forget or Update Password</a></li>
+            <li><a href="logout.html">Logout</a></li>
+        </ul>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <header>
+            <h1>Welcome, Admin!</h1>
+            <p>Select an action from the sidebar to manage the platform.</p>
+        </header>
+
+        <!-- Sections -->
+        <section id="add-student">
+            <h2>Add Student</h2>
+            <p>Use this feature to add new students to the system.</p>
+            <a href="add-student.html"><button>Add Student</button></a>
+        </section>
+
+        <section id="add-teacher">
+            <h2>Add Teacher</h2>
+            <p>Use this feature to add new teachers to the system.</p>
+            <a href="add-teacher.html"><button>Add Teacher</button></a>
+        </section>
+
+        <section id="Delete User">
+            <h2>Delete User</h2>
+            <p>Delete student and Teacher.</p>
+            <a href="delete_user.php"><button>Delete User</button></a>
+        </section>
+
+        <section id="Update User">
+            <h2>Update User</h2>
+            <p>Update student and Teacher.</p>
+            <a href="update_user.php"><button>Update User</button></a>
+        </section>
+
+        <section id="Add Result">
+            <h2>Add Result</h2>
+            <a href="admin_upload_result.html"><button>Add Result</button></a>
+        </section>
+
+        <section id="manage-timetable">
+            <h2>Upload Time-table for Student</h2>
+            <p>Create and update time-tables for classes and events.</p>
+            <a href="admin_upload_timetable.php"><button>Upload Time-table Student</button></a>
+        </section>
+
+        <section id="manage-timetable">
+            <h2>Upload Time-table for teacher</h2>
+            <p>Create and update time-tables for classes and events.</p>
+            <a href="admin_upload_timetable_teacher.html"><button>Upload Time-table Teacher</button></a>
+        </section>
+
+
+        <section id="view results">
+            <h2>View Reports</h2>
+            <a href="admin-reports.html"><button>View Report</button></a>
+        </section>
+    </div>
+</body>
+</html>

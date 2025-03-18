@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload Assignment</title>
+    <style>
+        /* General Styles */
+        body {
+            font-family: Arial, sans-serif;
+            background: #f5f5f5;
+            margin: 0;
+            padding: 0;
+            display: flex;
+        }
+
+        /* Sidebar Styling */
+        .sidebar {
+            width: 250px;
+            background-color: #2c3e50;
+            color: #fff;
+            height: 100vh;
+            padding: 20px;
+            position: fixed;
+            left: 0;
+            top: 0;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .sidebar ul {
+            list-style-type: none;
+            padding: 0;
+            margin-top: 20px;
+        }
+
+        .sidebar ul li {
+            margin-bottom: 15px;
+        }
+
+        .sidebar ul li a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 1rem;
+            display: block;
+            padding: 10px 15px;
+            border-radius: 5px;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+
+        .sidebar ul li a:hover, 
+        .sidebar ul li a.active {
+            background-color: #1abc9c;
+            transform: scale(1.05);
+        }
+
+        /* Container Styling */
+        .container {
+            width: 50%;
+            margin: 250px;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
+            margin-top: 50px;
+            position: relative;
+            left: 270px;
+        }
+
+        /* Form Styling */
+        h2 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        input, select {
+            width: calc(100% - 20px);
+            padding: 12px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            display: block;
+            font-size: 16px;
+        }
+
+        /* Submit Button */
+        input[type="submit"] {
+            background: #1abc9c;
+            color: white;
+            cursor: pointer;
+            border: none;
+            font-size: 18px;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        input[type="submit"]:hover {
+            background: #16a085;
+            transform: scale(1.05);
+        }
+
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <ul>
+            <li><a href="teacher_dashboard.php">Dashboard</a></li>
+            <li><a href="attendance.html">Mark Attendance</a></li>
+            <li><a href="upload_assignment.html" class="active">Upload Assignment</a></li>
+            <li><a href="upload_event.php">Events</a></li>
+            <li><a href="teacher_view_timetable.html">View Timetable</a></li>
+            <li><a href="forget_password_teacher.html">Forget or Update Password</a></li>
+            <li><a href="logout.html">Logout</a></li>
+        </ul>
+    </div>
+    <div class="container">
+        <h2>Upload Assignment</h2>
+        <form action="upload_assignment.php" method="POST" enctype="multipart/form-data">
+            <input type="text" name="teacher_name" placeholder="Enter Your Name" required>
+            <input type="text" name="course" placeholder="Enter Course Name" required>
+            <input type="text" name="semester" placeholder="Enter Semester" required>
+            <input type="text" name="section" placeholder="Enter Section" required>
+            <input type="date" name="deadline" required>
+            <input type="file" name="assignment_file" accept=".pdf,.doc,.docx" required>
+            <input type="submit" name="submit" value="Upload Assignment">
+        </form>
+    </div>
+</body>
+</html>
+

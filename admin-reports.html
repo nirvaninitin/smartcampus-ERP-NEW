@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Reports</title>
+    <link rel="stylesheet" href="admin-reports.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <div class="sidebar">
+        <h2>Admin Dashboard</h2>
+        <ul>
+            <li><a href="admin.html">Dashboard</a></li>
+            <li><a href="add-student.html">Add Student</a></li>
+            <li><a href="add-teacher.html">Add Teacher</a></li>
+            <li><a href="delete_user.php">Delete User</a></li>
+            <li><a href="update_user.php">Update User</a></li>
+            <li><a href="admin_upload_timetable.php">Upload Time-table Student</a></li>
+            <li><a href="admin_upload_timetable_teacher.html">Upload Time-table Teacher</a></li>
+            <li><a href="admin_upload_result.html">Upload Result</a></li>
+            <li><a href="admin-reports.html">View Reports</a></li>
+            <li><a href="forget_password_admin.html">Forget or Update Password</a></li>
+            <li><a href="logout.html">Logout</a></li>
+        </ul>
+    </div>
+    
+    <div class="main-content">
+        <header>
+            <h1>View Reports</h1>
+            <p>Select a table to view data.</p>
+        </header>
+        
+        <section>
+            <label for="table-select">Select Table:</label>
+            <select id="table-select">
+                <option value="">-- Select Table --</option>
+                <option value="assignments">Assignments</option>
+                <option value="events">Events</option>
+                <option value="results">Results</option>
+                <option value="student">Students</option>
+                <option value="teacher">Teachers</option>
+                <option value="attendance">Attendance</option>
+                <option value="timetables">Timetables</option>
+                <option value="teacher_timetable">teacher_timetable</option>
+            </select>
+        </section>
+        
+        <div id="report-container"></div>
+    </div>
+
+    <script>
+        $(document).ready(function() {
+            $('#table-select').change(function() {
+                let tableName = $(this).val();
+                if (tableName) {
+                    $.ajax({
+                        url: 'fetch-reports.php',
+                        type: 'POST',
+                        data: { table: tableName },
+                        success: function(response) {
+                            $('#report-container').html(response);
+                        }
+                    });
+                } else {
+                    $('#report-container').html('');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

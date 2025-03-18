@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Student</title>
+    <link rel="stylesheet" href="add-student.css">
+</head>
+<body>
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <h2>Admin Dashboard</h2>
+        <ul>
+            <li><a href="admin.html">Dashboard</a></li>
+            <li><a href="add-student.html">Add Student</a></li>
+            <li><a href="add-teacher.html">Add Teacher</a></li>
+            <li><a href="delete_user.php">Delete User</a></li>
+            <li><a href="update_user.php">Update User</a></li>
+            <li><a href="admin_upload_timetable.php">Upload Time-table Student</a></li>
+            <li><a href="admin_upload_timetable_teacher.html">Upload Time-table Teacher</a></li>
+            <li><a href="admin_upload_result.html">Upload Result</a></li>
+            <li><a href="admin-reports.html">View Reports</a></li>
+            <li><a href="forget_password_admin.html">Forget or Update Password</a></li>
+            <li><a href="logout.html">Logout</a></li>
+
+        </ul>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <header>
+            <h1>Add Student</h1>
+            <p>Fill out the form below to add a new student to the system.</p>
+        </header>
+
+        <!-- Add Student Form -->
+        <section>
+            <form class="form-container" action="add-student.php" method="POST">
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" name="username" placeholder="Enter username" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" placeholder="Enter password" required>
+                </div>
+                <div class="form-group">
+                    <label for="first_name">First Name</label>
+                    <input type="text" id="first_name" name="first_name" placeholder="Enter first name" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" placeholder="Enter email" required>
+                </div>
+                <div class="form-group">
+                    <label for="course">Course</label>
+                    <input type="text" id="course" name="course" placeholder="Enter course" required>
+                </div>
+                <div class="form-group">
+                    <label for="semester">Semester</label>
+                    <input type="number" id="semester" name="semester" placeholder="Enter semester" required>
+                </div>
+                <div class="form-group">
+                    <label for="semester">Section</label>
+                    <input type="text" id="section" name="section" placeholder="Enter section" required>
+                </div>
+                <button type="submit" class="btn-submit">Add Student</button>
+            </form>
+            
+        </section>
+    </div>
+</body>
+</html>

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload Results</title>
+    <link rel="stylesheet" href="style_result.css">
+</head>
+<body>
+    <div class="sidebar">
+        <h2>Admin Dashboard</h2>
+        <ul>
+            <li><a href="admin.html">Dashboard</a></li>
+            <li><a href="add-student.html">Add Student</a></li>
+            <li><a href="add-teacher.html">Add Teacher</a></li>
+            <li><a href="delete_user.php">Delete User</a></li>
+            <li><a href="update_user.php">Update User</a></li>
+            <li><a href="admin_upload_timetable.php">Upload Time-table Student</a></li>
+            <li><a href="admin_upload_timetable_teacher.html">Upload Time-table Teacher</a></li>
+            <li><a href="admin_upload_result.html">Upload Result</a></li>
+            <li><a href="admin-reports.html">View Reports</a></li>
+            <li><a href="forget_password_admin.html">Forget or Update Password</a></li>
+            <li><a href="logout.html">Logout</a></li>
+        </ul>
+    </div>
+
+    <div class="main-content">
+        <h2>Upload Student Result</h2>
+        <form id="filterForm">
+            <label>Course Name:</label>
+            <input type="text" id="course" required>
+
+            <label>Semester:</label>
+            <input type="number" id="semester" min="1" max="8" required>
+
+            <label>Section:</label>
+            <input type="text" id="section" required>
+
+            <button type="button" onclick="fetchStudents()">Show Students</button>
+        </form>
+
+        <h3>Students List</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Student ID</th>
+                    <th>Name</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody id="studentTable"></tbody>
+        </table>
+    </div>
+
+    <script>
+        function fetchStudents() {
+            let course = document.getElementById("course").value.trim();
+            let semester = document.getElementById("semester").value.trim();
+            let section = document.getElementById("section").value.trim();
+
+            if (course === "" || semester === "" || section === "") {
+                alert("Please enter all fields!");
+                return;
+            }
+
+            fetch(`fetch_students_result.php?course=${course}&semester=${semester}&section=${section}`)
+            .then(response => response.json())
+            .then(data => {
+                let table = document.getElementById("studentTable");
+                table.innerHTML = ""; 
+
+                if (data.length === 0) {
+                    table.innerHTML = "<tr><td colspan='3'>No students found!</td></tr>";
+                    return;
+                }
+
+                data.forEach(student => {
+                    let row = `<tr>
+                        <td>${student.id}</td>
+                        <td>${student.first_name} ${student.last_name}</td>
+                        <td><button onclick="uploadResult(${student.id})">Add Result</button></td>
+                    </tr>`;
+                    table.innerHTML += row;
+                });
+            });
+        }
+
+        function uploadResult(studentId) {
+            let fileInput = document.createElement("input");
+            fileInput.type = "file";
+            fileInput.accept = "application/pdf,image/png,image/jpeg";
+            fileInput.onchange = function() {
+                let file = fileInput.files[0];
+                let formData = new FormData();
+                formData.append("student_id", studentId);
+                formData.append("result_file", file);
+
+                fetch("upload_result.php", {
+                    method: "POST",
+                    body: formData
+                }).then(response => response.text())
+                .then(data => alert(data));
+            };
+            fileInput.click();
+        }
+    </script>
+</body>
+</html>

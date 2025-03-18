@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Timetable</title>
+    <link rel="stylesheet" href="timetable.css">
+</head>
+<body>
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <h2>Teacher Dashboard</h2>
+        <ul>
+            <li><a href="teacher_dashboard.php">Dashboard</a></li>
+            <li><a href="attendance.html">Mark Attendance</a></li>
+            <li><a href="upload_assignment.html">Upload Assignment</a></li>
+            <li><a href="upload_event.php">Events</a></li>
+            <li><a href="teacher_view_timetable.html" class="active">View Timetable</a></li>
+            <li><a href="forget_password_teacher.html">Forget or Update Password</a></li>
+            <li><a href="logout.html">Logout</a></li>
+        </ul>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <header>
+            <h1>View Timetable</h1>
+            <p>Your scheduled classes are displayed below.</p>
+        </header>
+
+        <section>
+            <table class="timetable-table">
+                <thead>
+                    <tr>
+                        <th>Day</th>
+                        <th>Start Time</th>
+                        <th>End Time</th>
+                        <th>Course</th>
+                        <th>Section</th>
+                        <th>Subject</th>
+                        <th>Room</th>
+                    </tr>
+                </thead>
+                <tbody id="timetable-body">
+                    <!-- Timetable data will be inserted here dynamically -->
+                </tbody>
+            </table>
+        </section>
+    </div>
+
+    <script>
+        // Fetch timetable data from PHP file
+        fetch('teacher_view_timetable.php')
+        .then(response => response.json())
+        .then(data => {
+            const tableBody = document.getElementById("timetable-body");
+            tableBody.innerHTML = ""; // Clear existing content
+
+            if (data.error) {
+                tableBody.innerHTML = `<tr><td colspan='7'>${data.error}</td></tr>`;
+                return;
+            }
+
+            if (data.length === 0) {
+                tableBody.innerHTML = "<tr><td colspan='7'>No timetable available</td></tr>";
+            } else {
+                data.forEach(row => {
+                    const tr = document.createElement("tr");
+                    tr.innerHTML = `
+                        <td>${row.day}</td>
+                        <td>${row.start_time}</td>
+                        <td>${row.end_time}</td>
+                        <td>${row.course}</td>
+                        <td>${row.section}</td>
+                        <td>${row.subject}</td>
+                        <td>${row.room}</td>
+                    `;
+                    tableBody.appendChild(tr);
+                });
+            }
+        })
+        .catch(error => console.error('Error fetching timetable:', error));
+    </script>
+</body>
+</html>
